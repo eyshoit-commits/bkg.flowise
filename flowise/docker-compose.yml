@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  flowise:
+    image: flowiseai/flowise:latest
+    container_name: bkg-flowise
+    environment:
+      - PORT=8743
+      - DATABASE_URL=postgresql://forge:forge-secure@db:7643/forge?schema=flowise
+    ports:
+      - "8743:8743"
+    depends_on:
+      - db
+    volumes:
+      - ./flows:/flowise/data/flows
+    restart: unless-stopped
+  db:
+    image: ankane/pgvector
+    container_name: bkg-flowise-db
+    environment:
+      - POSTGRES_DB=forge
+      - POSTGRES_USER=forge
+      - POSTGRES_PASSWORD=forge-secure
+    ports:
+      - "7643:5432"
+    command: ["postgres", "-p", "5432"]
+    restart: unless-stopped
