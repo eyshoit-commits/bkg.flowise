@@ -45,7 +45,7 @@ export class LLMClient {
       throw new Error(`Chat completion failed: ${response.status} ${text}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
     const choice = data.choices?.[0]?.message?.content;
     if (!choice) throw new Error('No completion returned');
     return choice as string;
@@ -62,7 +62,7 @@ export class LLMClient {
       const text = await response.text();
       throw new Error(`Embedding failed: ${response.status} ${text}`);
     }
-    const data = await response.json();
+    const data = (await response.json()) as { data?: Array<{ embedding?: unknown }> };
     const vector = data.data?.[0]?.embedding;
     if (!Array.isArray(vector)) {
       throw new Error('No embedding returned');
