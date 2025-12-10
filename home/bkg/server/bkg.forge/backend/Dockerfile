@@ -1,14 +1,14 @@
-FROM node:20-alpine AS build
+FROM oven/bun:1.2-alpine AS build
 WORKDIR /app
 COPY package.json tsconfig.json .
 COPY src ./src
-RUN npm install --omit=dev=false && npm run build
+RUN bun install --frozen-lockfile=false && bun run build
 
-FROM node:20-alpine
+FROM oven/bun:1.2-alpine
 WORKDIR /app
 COPY package.json .
-RUN npm install --omit=dev
+RUN bun install --production --frozen-lockfile=false
 COPY --from=build /app/dist ./dist
 ENV PORT=7845
 EXPOSE 7845
-CMD ["node", "dist/server.js"]
+CMD ["bun", "run", "dist/server.js"]

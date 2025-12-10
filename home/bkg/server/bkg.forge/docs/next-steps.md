@@ -35,6 +35,7 @@ Diese Liste priorisiert die ausstehenden Arbeiten, um die Plattform produktionsr
 - **Infra**: Hardened Docker Compose mit nicht-privilegierten Usern, Resource-Limits, Network Policies.
 - **Backups**: Point-in-Time-Recovery für Postgres, Export/Import der Flowise-Flows.
 - **Testing**: E2E-Tests (Playwright), Contract-Tests für RAG/Agent-APIs, Loadtests für Vektor-Suche.
+- **Tooling**: Bun-first Toolchain (bun install/run), reproduzierbare bun.lock Artefakte, Container-Builds auf oven/bun Basis.
 
 ## 7. Documentation
 - **Runbooks**: Incident-Response, Rotation von API Keys, Upgrade-Guides für LMStudio/LlamaEdge/Ollama.

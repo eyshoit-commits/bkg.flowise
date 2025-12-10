@@ -12,9 +12,9 @@ Lokale KI-gestützte Entwicklungsplattform mit Cyberpunk-UI, Flowise-Automatisie
 - `docs/`: Architektur- und Feature-Dokumentation
 
 ## Schnellstart
-1. `cd backend && npm install && npm run dev` (Port 7845)
+1. `cd backend && bun install && bun run dev` (Port 7845)
 2. `cd flowise && ./scripts/start-flowise.sh` (Port 8610)
-3. `cd webui && npm install && npm run dev` (Port 5173)
+3. `cd webui && bun install && bun run dev` (Port 5173)
 
 Setze `DATABASE_URL`, `LMSTUDIO_URL`, `LLAMAEDGE_URL`, `OLLAMA_URL` und `SIMSTUDIO_URL` in einer `.env`.
 

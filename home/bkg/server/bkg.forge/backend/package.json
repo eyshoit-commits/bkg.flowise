@@ -4,13 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx src/server.ts",
-    "build": "tsc --project tsconfig.json",
-    "start": "node dist/server.js",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:deploy": "prisma migrate deploy"
+    "dev": "bun --watch src/server.ts",
+    "build": "bun run tsc --project tsconfig.json",
+    "start": "bun run dist/server.js",
+    "lint": "bunx eslint 'src/**/*.{ts,tsx}'",
+    "prisma:generate": "bunx prisma generate",
+    "prisma:migrate": "bunx prisma migrate dev",
+    "prisma:deploy": "bunx prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "5.20.0",
