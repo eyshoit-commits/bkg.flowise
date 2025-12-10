@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  files       File[]
+  workflows   Workflow[]
+  ragDocs     RagDocument[]
+}
+
+model File {
+  id        String   @id @default(cuid())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  path      String
+  content   String
+  hash      String
+  indexed   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([projectId, path])
+}
+
+model AgentLog {
+  id        String   @id @default(cuid())
+  agent     String
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
+  payload   Json
+  createdAt DateTime @default(now())
+}
+
+model Workflow {
+  id          String   @id @default(cuid())
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   String
+  name        String
+  flowiseId   String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model RagDocument {
+  id            String   @id @default(cuid())
+  project       Project  @relation(fields: [projectId], references: [id])
+  projectId     String
+  title         String
+  content       String
+  mime          String   @default("text/plain")
+  tokens        Int
+  embedding     Unsupported("vector")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  metadata      EmbeddingMetadata?
+  queries       RagQuery[]
+  @@index([projectId])
+  @@index([title])
+}
+
+model RagQuery {
+  id          String    @id @default(cuid())
+  project     Project   @relation(fields: [projectId], references: [id])
+  projectId   String
+  query       String
+  response    String
+  similarity  Float
+  document    RagDocument? @relation(fields: [documentId], references: [id])
+  documentId  String?
+  createdAt   DateTime  @default(now())
+}
+
+model EmbeddingMetadata {
+  id          String      @id @default(cuid())
+  document    RagDocument @relation(fields: [documentId], references: [id])
+  documentId  String      @unique
+  source      String
+  chunkSize   Int
+  overlap     Int
+  model       String
+  encoder     String
+  createdAt   DateTime @default(now())
+}

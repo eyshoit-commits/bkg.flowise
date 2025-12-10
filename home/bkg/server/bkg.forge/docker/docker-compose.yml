@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: forge
+      POSTGRES_PASSWORD: change_me_strong
+      POSTGRES_DB: forge
+    ports:
+      - '7543:7543'
+    command: ['postgres', '-p', '7543', '-c', 'shared_buffers=256MB']
+    volumes:
+      - forge_pg:/var/lib/postgresql/data
+
+  backend:
+    build: ../backend
+    environment:
+      DATABASE_URL: postgresql://forge:change_me_strong@postgres:7543/forge
+      PORT: 7845
+    ports:
+      - '7845:7845'
+    depends_on:
+      - postgres
+
+  webui:
+    image: oven/bun:1.2-alpine
+    working_dir: /webui
+    command: sh -c "bun install --frozen-lockfile=false && bun run dev"
+    volumes:
+      - ../webui:/webui
+    ports:
+      - '5173:5173'
+    depends_on:
+      - backend
+volumes:
+  forge_pg:

@@ -1,0 +1,19 @@
+{
+  "name": "Forge Bootstrap",
+  "description": "Starter flow for embedding chat into the cyberpunk IDE.",
+  "nodes": [
+    {
+      "id": "input",
+      "type": "chatInput",
+      "data": { "placeholder": "Frag die Schmiede..." }
+    },
+    {
+      "id": "llm",
+      "type": "llm",
+      "data": { "provider": "ollama", "model": "mistral" }
+    }
+  ],
+  "edges": [
+    { "from": "input", "to": "llm" }
+  ]
+}
