@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Projects {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  files       Files[]
+}
+
+model Files {
+  id        String   @id @default(cuid())
+  path      String
+  content   String
+  project   Projects @relation(fields: [projectId], references: [id])
+  projectId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AgentLogs {
+  id        String   @id @default(cuid())
+  agent     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Workflows {
+  id        String   @id @default(cuid())
+  name      String
+  flowId    String
+  createdAt DateTime @default(now())
+}
+
+model RagDocument {
+  id        String   @id @default(cuid())
+  source    String
+  hash      String
+  createdAt DateTime @default(now())
+}
+
+model RagQuery {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+}
+
+model EmbeddingMetadata {
+  id        String   @id @default(cuid())
+  chunkId   String
+  source    String
+  createdAt DateTime @default(now())
+}

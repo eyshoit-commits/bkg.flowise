@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  flowise:
+    image: flowiseai/flowise:latest
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "41800:41800"
+    volumes:
+      - flowise_data:/root/.flowise
+volumes:
+  flowise_data: {}
