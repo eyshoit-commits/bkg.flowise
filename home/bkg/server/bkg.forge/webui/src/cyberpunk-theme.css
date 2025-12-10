@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --neon-cyan: #00f6ff;
+  --neon-magenta: #ff009f;
+  --scanline: linear-gradient(rgba(255, 255, 255, 0.08) 50%, transparent 50%);
+  color-scheme: dark;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: radial-gradient(circle at 20% 20%, rgba(0, 246, 255, 0.08), transparent 25%),
+    radial-gradient(circle at 80% 0%, rgba(255, 0, 159, 0.08), transparent 30%),
+    #050505;
+  color: var(--neon-cyan);
+  min-height: 100vh;
+  background-size: 100% 3px, 100% 3px, cover;
+  position: relative;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--scanline);
+  background-size: 100% 2px;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.glow {
+  text-shadow: 0 0 12px rgba(0, 246, 255, 0.8);
+}
+
+.panel {
+  border: 1px solid rgba(0, 246, 255, 0.25);
+  background: rgba(10, 10, 10, 0.7);
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.05);
+  backdrop-filter: blur(6px);
+}
+
+.button-neon {
+  border: 1px solid var(--neon-magenta);
+  background: linear-gradient(90deg, rgba(0, 246, 255, 0.1), rgba(255, 0, 159, 0.15));
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.button-neon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(255, 0, 159, 0.4);
+}

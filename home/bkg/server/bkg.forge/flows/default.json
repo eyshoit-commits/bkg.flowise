@@ -1,0 +1,6 @@
+{
+  "id": "self-forge",
+  "summary": "Autonomer Buildplan",
+  "steps": ["Plan", "Code", "Review", "Deploy"],
+  "created": "2024-01-01T00:00:00Z"
+}
